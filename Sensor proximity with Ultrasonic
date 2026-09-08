@@ -1,0 +1,49 @@
+#include <Ultrasonic.h>
+
+Ultrasonic ultrasonic(6, 7);
+int led = 3;
+int led1 = 4;
+int led2 = 5;
+int bu = 8;
+float distanciaCM = 0;
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(led, OUTPUT);
+  pinMode(led1, OUTPUT);
+  pinMode(led2, OUTPUT);
+  pinMode(bu, OUTPUT);
+}
+
+
+void loop() {
+  
+  distanciaCM = ultrasonic.read();
+  
+  
+  ledDistancia(distanciaCM);
+  
+  
+  Serial.print(distanciaCM);
+  Serial.println("cm");
+  
+  delay(500);
+}
+
+void ledDistancia(float distancia) {
+  digitalWrite(led, LOW);
+  digitalWrite(led1, LOW);
+  digitalWrite(led2, LOW);
+  
+  if (distancia <= 30 && distancia >= 20) {
+    digitalWrite(led, HIGH);
+  }
+  else if (distancia < 20 && distancia >= 10) {
+    digitalWrite(led2, HIGH);
+    tone(bu, 250, 100);
+  }
+  else if (distancia < 10 && distancia >= 0) {
+    digitalWrite(led1, HIGH);
+    tone(bu, 2500, 1000);
+  }
+}
