@@ -1,0 +1,59 @@
+int lve = 2;
+int lver = 3;
+int lam = 4;
+int b1 = 5;
+int b2 = 6;
+int b3 = 7;
+int bu = 8;
+
+void setup() {
+  pinMode(lve, OUTPUT);
+  pinMode(lver, OUTPUT);
+  pinMode(lam, OUTPUT);
+  pinMode(b1, INPUT);
+  pinMode(b2, INPUT);
+  pinMode(b3, INPUT);
+  pinMode(bu, OUTPUT);
+}
+
+void loop() {
+
+  digitalWrite(lve, HIGH);
+
+
+  unsigned long tempoInicio = millis(); 
+
+  bool venceu = false; 
+
+
+  while (millis() - tempoInicio < 6000) {
+    
+
+    if (digitalRead(b1) == HIGH) { 
+      venceu = true; 
+      break;         
+    }
+    
+  }
+
+
+  digitalWrite(lve, LOW);
+
+  if (venceu == true) {
+  
+    tone(bu, 2000, 100);
+    delay(150);
+    tone(bu, 2500, 200);
+    delay(200);
+  } else {
+   
+    tone(bu, 200, 150);
+    delay(180);
+    tone(bu, 120, 350);
+    delay(350);
+  }
+
+
+  delay(3000); 
+}
+//Need to put more leds.But for now we just gonna use 1 Led and 1 button.
